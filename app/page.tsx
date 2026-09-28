@@ -1,201 +1,245 @@
-import type { Metadata } from 'next';
-import { PageSection } from '@/components/layout';
-import { LinkButton, SectionHeading, ProjectCard, SkillCategory } from '@/components/ui';
-import { siteMetadata, getFullTitle } from '@/lib/site';
-import { homeContent } from '@/lib/content';
-import { homeSkillCategories } from '@/lib/skills';
-import { getFeaturedProjects } from '@/lib/projects';
+import Image from "next/image";
+import profilePhoto from "../Capture d'écran 2025-12-10 182839.png";
 
-export const metadata: Metadata = {
-  title: `Accueil - ${getFullTitle()}`,
-  description: siteMetadata.longDescription,
-  keywords: siteMetadata.seo.keywords,
-  openGraph: {
-    title: getFullTitle(),
-    description: siteMetadata.longDescription,
-    type: 'website',
+const navigation = [
+  { label: "À propos", href: "#apropos" },
+  { label: "Compétences", href: "#competences" },
+  { label: "Projets", href: "#projets" },
+  { label: "Parcours", href: "#parcours" },
+];
+
+const skillGroups = [
+  {
+    number: "01",
+    title: "Électronique embarquée",
+    description: "Arduino IDE, PSpice, LTspice, Proteus, EasyEDA et FlatCAM.",
   },
-};
+  {
+    number: "02",
+    title: "Programmation",
+    description: "C, C++, Python, Tkinter, PHP, Symfony, Java, JavaFX, HTML et CSS.",
+  },
+  {
+    number: "03",
+    title: "Bases de données",
+    description: "PostgreSQL, MySQL et SQL Server Express.",
+  },
+  {
+    number: "04",
+    title: "Outils",
+    description: "GitHub et Visual Studio Code.",
+  },
+];
 
-export default function Home() {
-  const featuredProjects = getFeaturedProjects();
+const projects = [
+  {
+    year: "2026",
+    category: "Projet technique",
+    title: "Serre intelligente",
+    description:
+      "Système d'agriculture connectée sur Arduino pour suivre la température, l'humidité de l'air et du sol, la luminosité et la gestion de l'énergie.",
+    tools: "Arduino, capteurs environnementaux",
+  },
+  {
+    year: "2025",
+    category: "Projet informatique",
+    title: "Applications de gestion de données",
+    description:
+      "Interfaces graphiques avec JavaFX et Python (Tkinter), ainsi qu'une application web dynamique avec Symfony et une base relationnelle MySQL.",
+    tools: "JavaFX, Tkinter, Symfony, MySQL",
+  },
+  {
+    year: "2023",
+    category: "Dispositif d'assistance",
+    title: "Blind Eyes",
+    description:
+      "Canne d'assistance basée sur Arduino Uno, avec détection d'obstacles, de mouvement et d'humidité, et alertes sonores ou tactiles. Deuxième place au concours de projet.",
+    tools: "Arduino Uno, capteurs, alertes",
+  },
+];
 
+export default function Page() {
   return (
     <>
-      {/* Hero Section */}
-      <PageSection className="bg-gradient-to-br from-slate-50 via-white to-slate-50">
-        <div className="max-w-4xl mx-auto text-center py-8 md:py-12">
-          <div className="inline-block px-4 py-2 bg-amber-50 border border-amber-200 rounded-full text-sm font-medium text-amber-700 mb-6">
-            {homeContent.hero.badge}
-          </div>
+      <header className="site-header">
+        <a className="wordmark" href="#accueil" aria-label="Mulat Ranaboson, accueil">
+          MR<span>.</span>
+        </a>
+        <nav className="main-nav" aria-label="Navigation principale">
+          {navigation.map((item) => (
+            <a key={item.href} href={item.href}>
+              {item.label}
+            </a>
+          ))}
+        </nav>
+        <a className="header-contact" href="#contact">
+          Contact <span aria-hidden="true">-&gt;</span>
+        </a>
+      </header>
 
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight">
-            {homeContent.hero.title}{' '}
-            <span className="text-amber-600">{homeContent.hero.titleHighlight}</span>
-          </h1>
-
-          <p className="text-lg md:text-xl text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-            {homeContent.hero.description}
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <LinkButton href="/work" size="lg">
-              {homeContent.hero.primaryCta}
-            </LinkButton>
-            <LinkButton href="/contact" variant="secondary" size="lg">
-              {homeContent.hero.secondaryCta}
-            </LinkButton>
-          </div>
-
-          {/* Visual element - Circuit pattern */}
-          <div className="mt-12 relative h-32 opacity-20" aria-hidden="true">
-            <svg className="w-full h-full" viewBox="0 0 800 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0 50 L100 50 L100 20 L200 20 L200 80 L300 80 L300 30 L400 30" stroke="currentColor" strokeWidth="2" className="text-amber-500"/>
-              <circle cx="100" cy="50" r="4" fill="currentColor" className="text-amber-500"/>
-              <circle cx="100" cy="20" r="4" fill="currentColor" className="text-amber-500"/>
-              <circle cx="200" cy="20" r="4" fill="currentColor" className="text-amber-500"/>
-              <circle cx="200" cy="80" r="4" fill="currentColor" className="text-amber-500"/>
-              <circle cx="300" cy="80" r="4" fill="currentColor" className="text-amber-500"/>
-              <circle cx="300" cy="30" r="4" fill="currentColor" className="text-amber-500"/>
-              <path d="M400 30 L500 30 L500 70 L600 70 L600 40 L700 40 L700 50 L800 50" stroke="currentColor" strokeWidth="2" className="text-slate-300"/>
-              <circle cx="400" cy="30" r="4" fill="currentColor" className="text-slate-300"/>
-              <circle cx="500" cy="30" r="4" fill="currentColor" className="text-slate-300"/>
-              <circle cx="500" cy="70" r="4" fill="currentColor" className="text-slate-300"/>
-              <circle cx="600" cy="70" r="4" fill="currentColor" className="text-slate-300"/>
-              <circle cx="600" cy="40" r="4" fill="currentColor" className="text-slate-300"/>
-              <circle cx="700" cy="40" r="4" fill="currentColor" className="text-slate-300"/>
-            </svg>
-          </div>
-        </div>
-      </PageSection>
-
-      {/* Quick Presentation */}
-      <PageSection className="bg-white">
-        <div className="max-w-3xl mx-auto">
-          <SectionHeading level={2} className="text-center mb-8">
-            {homeContent.expertise.title}
-          </SectionHeading>
-
-          <div className="prose prose-slate max-w-none">
-            <p className="text-lg text-slate-700 leading-relaxed mb-6">
-              {homeContent.expertise.description}
+      <main>
+        <section className="hero" id="accueil" aria-labelledby="hero-title">
+          <div className="hero-copy">
+            <p className="eyebrow"><span className="eyebrow-mark" /> Ingénieur en électronique</p>
+            <h1 id="hero-title">
+              Mulat
+              <br />
+              <span>Ranaboson.</span>
+            </h1>
+            <p className="hero-summary">
+              Ingénieur en électronique, je conçois des cartes électroniques et des systèmes
+              embarqués, du prototypage au développement logiciel.
             </p>
+            <div className="hero-links">
+              <a className="button-link" href="#competences">
+                Decouvrir mon profil <span aria-hidden="true">-&gt;</span>
+              </a>
+              <a className="underlined-link" href="#contact">Me contacter</a>
+            </div>
+          </div>
 
-            <div className="grid md:grid-cols-2 gap-6 my-8">
-              <div className="p-6 bg-slate-50 border-l-4 border-amber-500">
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">
-                  {homeContent.expertise.hardware.title}
-                </h3>
-                <p className="text-slate-600 text-sm">
-                  {homeContent.expertise.hardware.description}
-                </p>
+          <figure className="hero-photo">
+            <Image
+              className="profile-photo"
+              src={profilePhoto}
+              alt="Portrait de Mulat Ranaboson"
+              preload
+            />
+          </figure>
+        </section>
+
+        <section className="about-section content-section" id="apropos" aria-labelledby="about-title">
+          <p className="section-index">01 / À propos</p>
+          <div className="section-body about-body">
+            <h2 id="about-title">Des idées aux solutions.</h2>
+            <p>
+              Diplômé d&apos;une Licence en électronique et actuellement en Master à l&apos;École
+              Supérieure Polytechnique d&apos;Antananarivo, je suis spécialisé dans la conception de
+              cartes électroniques (PCB), les systèmes embarqués et le développement logiciel.
+              Autonome et rigoureux, je suis disponible pour des projets à distance.
+            </p>
+          </div>
+        </section>
+
+        <section className="skills-section content-section" id="competences" aria-labelledby="skills-title">
+          <p className="section-index">02 / Compétences</p>
+          <div className="section-body">
+            <div className="section-heading">
+              <h2 id="skills-title">Compétences techniques</h2>
+              <p>Électronique, programmation et outils de conception.</p>
+            </div>
+            <div className="skill-list">
+              {skillGroups.map((skill) => (
+                <article className="skill-item" key={skill.number}>
+                  <span className="skill-number">{skill.number}</span>
+                  <h3>{skill.title}</h3>
+                  <p>{skill.description}</p>
+                </article>
+              ))}
+            </div>
+            <div className="soft-skills">
+              <h3>Soft skills</h3>
+              <ul className="soft-skill-list">
+                <li>Autonomie &amp; débrouillardise</li>
+                <li>Rigueur &amp; méthode</li>
+                <li>Curiosité &amp; appétence tech</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section className="projects-section content-section" id="projets" aria-labelledby="projects-title">
+          <p className="section-index">03 / Projets</p>
+          <div className="section-body">
+            <div className="section-heading">
+              <h2 id="projects-title">Réalisations</h2>
+              <p>Des projets en électronique, systèmes embarqués et développement logiciel.</p>
+            </div>
+            <div className="project-list">
+              {projects.map((project) => (
+                <article className="project-item" key={project.title}>
+                  <div className="project-meta">
+                    <span className="project-number">{project.year}</span>
+                    <span>{project.category}</span>
+                  </div>
+                  <div className="project-copy">
+                    <h3>{project.title}</h3>
+                    <p>{project.description}</p>
+                    <span className="project-tools">{project.tools}</span>
+                  </div>
+                  <span className="project-arrow" aria-hidden="true">-&gt;</span>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="career-section content-section" id="parcours" aria-labelledby="career-title">
+          <p className="section-index">04 / Parcours</p>
+          <div className="section-body">
+            <div className="section-heading">
+              <h2 id="career-title">Expérience &amp; formation</h2>
+              <p>Un parcours en électronique à l&apos;École Supérieure Polytechnique d&apos;Antananarivo.</p>
+            </div>
+            <div className="career-grid">
+              <div className="career-column">
+                <h3>Expérience</h3>
+                <article className="career-entry">
+                  <div className="career-entry-heading">
+                    <h4>Stagiaire en électronique</h4>
+                    <span>Déc. 2025 - Janv. 2026</span>
+                  </div>
+                  <p className="career-place">Naturano, Ambatoroka</p>
+                  <p>
+                    Réalisation d&apos;un chargeur multiports 5 V sécurisé par RFID sous ESP32, avec
+                    mesure de puissance en temps réel via INA226. Prototype validé sur banc d&apos;essai;
+                    carte PCB conçue sous EasyEDA et préparée à la fabrication avec FlatCAM.
+                  </p>
+                </article>
               </div>
-
-              <div className="p-6 bg-slate-50 border-l-4 border-amber-500">
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">
-                  {homeContent.expertise.software.title}
-                </h3>
-                <p className="text-slate-600 text-sm">
-                  {homeContent.expertise.software.description}
-                </p>
+              <div className="career-column">
+                <h3>Formation</h3>
+                <article className="career-entry">
+                  <div className="career-entry-heading">
+                    <h4>Master en électronique</h4>
+                    <span>En cours</span>
+                  </div>
+                  <p className="career-place">École Supérieure Polytechnique d&apos;Antananarivo</p>
+                </article>
+                <article className="career-entry">
+                  <div className="career-entry-heading">
+                    <h4>Licence en électronique</h4>
+                    <span>2025</span>
+                  </div>
+                  <p className="career-place">École Supérieure Polytechnique d&apos;Antananarivo</p>
+                </article>
               </div>
             </div>
-
-            <p className="text-center">
-              <LinkButton href="/about" variant="secondary">
-                {homeContent.expertise.cta}
-              </LinkButton>
-            </p>
           </div>
-        </div>
-      </PageSection>
+        </section>
 
-      {/* Featured Projects */}
-      <PageSection className="bg-slate-50">
-        <SectionHeading level={2} className="text-center mb-12">
-          {homeContent.projects.title}
-        </SectionHeading>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredProjects.map((project) => (
-            <ProjectCard
-              key={project.slug}
-              title={project.title}
-              category={project.category}
-              description={project.description}
-              tags={project.technologies}
-              href="/work"
-            />
-          ))}
-        </div>
-
-        <div className="text-center mt-12">
-          <LinkButton href="/work" variant="secondary" size="lg">
-            {homeContent.projects.cta}
-          </LinkButton>
-        </div>
-      </PageSection>
-
-      {/* Skills Section */}
-      <PageSection className="bg-white">
-        <div className="max-w-5xl mx-auto">
-          <SectionHeading level={2} className="text-center mb-12">
-            {homeContent.skills.title}
-          </SectionHeading>
-
-          <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-            {homeSkillCategories.map((category) => (
-              <SkillCategory
-                key={category.title}
-                title={category.title}
-                icon={
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    {category.icon === 'electronics' && (
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                    )}
-                    {category.icon === 'code' && (
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                    )}
-                    {category.icon === 'tools' && (
-                      <>
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </>
-                    )}
-                    {category.icon === 'people' && (
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                    )}
-                  </svg>
-                }
-                skills={category.skills}
-              />
-            ))}
+        <section className="contact-section" id="contact" aria-labelledby="contact-title">
+          <div className="contact-inner">
+            <p className="section-index">05 / Contact</p>
+            <h2 id="contact-title">Parlons de tes idées.</h2>
+            <p>Disponible pour échanger autour de projets électroniques et techniques.</p>
+            <div className="contact-links">
+              <a href="mailto:mulatranaboson@gmail.com">mulatranaboson@gmail.com</a>
+              <a href="tel:+261325405312">+261 32 54 053 12</a>
+              <span>Mahabo Andoharanofotsy</span>
+            </div>
+            <div className="personal-details">
+              <p><strong>Langues</strong> Malagasy (langue maternelle), français (courant), anglais (intermédiaire)</p>
+              <p><strong>Intérêts</strong> Lecture, technologie, football</p>
+            </div>
           </div>
-        </div>
-      </PageSection>
+        </section>
+      </main>
 
-      {/* Final CTA */}
-      <PageSection className="bg-gradient-to-br from-slate-900 to-slate-800 text-white">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-            {homeContent.finalCta.title}
-          </h2>
-          <p className="text-lg text-slate-300 mb-8 leading-relaxed">
-            {homeContent.finalCta.description}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <LinkButton href="/contact" size="lg">
-              {homeContent.finalCta.primaryButton}
-            </LinkButton>
-            <a
-              href={`mailto:${siteMetadata.contactInfo.email}`}
-              className="inline-flex items-center justify-center py-4 px-8 text-base font-medium rounded transition-all duration-150 bg-transparent text-white border border-slate-600 hover:bg-slate-800 hover:border-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-slate-900"
-            >
-              {homeContent.finalCta.secondaryButton}
-            </a>
-          </div>
-        </div>
-      </PageSection>
+      <footer className="site-footer">
+        <span>Mulat Ranaboson</span>
+        <span>Ingénieur en électronique</span>
+      </footer>
     </>
   );
 }
