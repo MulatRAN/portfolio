@@ -331,11 +331,15 @@ a:focus-visible {
 
 .project-item {
   display: grid;
-  grid-template-columns: 150px minmax(0, 1fr) 24px;
+  grid-template-columns: 150px minmax(0, 220px) minmax(0, 1fr) 40px;
   align-items: start;
   gap: 26px;
   padding: 25px 0;
   border-bottom: 1px solid var(--line);
+}
+
+.project-item-without-image {
+  grid-template-columns: 150px minmax(0, 1fr) 40px;
 }
 
 .project-meta {
@@ -350,11 +354,38 @@ a:focus-visible {
   font-size: 10px;
 }
 
-.project-copy h3 {
+.project-image-frame {
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--white);
+}
+
+.project-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.project-copy {
+  display: block;
+}
+
+.project-title {
   margin: 0 0 9px;
   font-family: Georgia, "Times New Roman", serif;
   font-size: 22px;
   font-weight: 400;
+}
+
+.project-description {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
 }
 
 .project-tools {
@@ -368,7 +399,171 @@ a:focus-visible {
 .project-arrow {
   color: var(--orange);
   font-size: 18px;
-  text-align: right;
+  transition: transform 180ms ease;
+}
+
+.project-open {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.project-open:hover {
+  border-color: var(--orange);
+  background: var(--white);
+}
+
+.project-open:hover .project-arrow {
+  transform: translateX(3px);
+}
+
+.project-open:focus-visible,
+.project-dialog-close:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
+
+.project-dialog {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: min(560px, 100%);
+  max-width: 100%;
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: -20px 0 60px rgba(24, 59, 48, 0.18);
+  animation: project-panel-enter 180ms ease-out;
+}
+
+.project-dialog::backdrop {
+  background: rgba(18, 32, 26, 0.48);
+  backdrop-filter: blur(2px);
+}
+
+.project-dialog-header {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 28px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.project-dialog-close {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.project-dialog-close:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+.project-dialog-close svg {
+  width: 18px;
+  height: 18px;
+}
+
+.project-dialog-content {
+  height: calc(100% - 76px);
+  overflow-y: auto;
+  padding: 32px 36px 48px;
+}
+
+.project-dialog-meta {
+  margin: 0 0 12px;
+  color: var(--orange);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.project-dialog-content h2 {
+  margin: 0 0 24px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 34px;
+  font-weight: 400;
+}
+
+.project-dialog-image-frame {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 22px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--white);
+}
+
+.project-dialog-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.project-dialog-description,
+.project-dialog-section p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.project-dialog-description {
+  margin: 0 0 30px;
+}
+
+.project-dialog-section {
+  margin-top: 26px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.project-dialog-section h3 {
+  margin: 0 0 10px;
+  color: var(--forest);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.project-dialog-section p {
+  margin: 0;
+}
+
+@keyframes project-panel-enter {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .career-grid {
@@ -465,6 +660,18 @@ a:focus-visible {
 .contact-links a {
   padding-bottom: 4px;
   border-bottom: 1px solid var(--lime);
+}
+
+.contact-links a:has(.social-link-icon) {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.social-link-icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
 }
 
 .personal-details {
@@ -598,23 +805,48 @@ a:focus-visible {
     gap: 14px;
   }
 
-  .project-item {
-    grid-template-columns: 1fr auto;
+  .project-item,
+  .project-item-without-image {
+    grid-template-columns: minmax(0, 1fr) 40px;
     gap: 12px 16px;
   }
 
   .project-meta {
     grid-column: 1;
+    grid-row: 1;
   }
 
-  .project-copy {
+  .project-image-frame {
+    grid-column: 1;
+    grid-row: 2;
+    width: min(100%, 220px);
+  }
+
+  .project-item-with-image .project-copy {
+    grid-column: 1 / -1;
+    grid-row: 3;
+  }
+
+  .project-item-without-image .project-copy {
     grid-column: 1 / -1;
     grid-row: 2;
   }
 
-  .project-arrow {
+  .project-open {
     grid-column: 2;
     grid-row: 1;
+  }
+
+  .project-dialog-header {
+    padding-inline: 20px;
+  }
+
+  .project-dialog-content {
+    padding: 26px 20px calc(32px + env(safe-area-inset-bottom));
+  }
+
+  .project-dialog-content h2 {
+    font-size: 30px;
   }
 
   .career-grid {

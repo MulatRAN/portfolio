@@ -1,5 +1,9 @@
 import Image from "next/image";
-import profilePhoto from "../Capture d'écran 2025-12-10 182839.png";
+import { FaEnvelope, FaFacebook, FaGithub, FaLinkedin, FaPhone, FaWhatsapp } from "react-icons/fa6";
+import profilePhoto from "../images/Capture d'écran 2025-12-10 182839.png";
+import blindPhoto from "../images/blind.jpg";
+import greenhousePhoto from "../images/serre2.jpeg";
+import { ProjectsPanel, type Project } from "@/components/ProjectsPanel";
 
 const navigation = [
   { label: "À propos", href: "#apropos" },
@@ -31,14 +35,18 @@ const skillGroups = [
   },
 ];
 
-const projects = [
+const projects: Project[] = [
   {
     year: "2026",
     category: "Projet technique",
     title: "Serre intelligente",
     description:
       "Système d'agriculture connectée sur Arduino pour suivre la température, l'humidité de l'air et du sol, la luminosité et la gestion de l'énergie.",
+    details:
+      "Le prototype utilise une carte Arduino et des capteurs pour suivre la température, l'humidité de l'air et du sol ainsi que la luminosité. La conception prend également en compte la gestion de l'énergie.",
     tools: "Arduino, capteurs environnementaux",
+    image: greenhousePhoto,
+    imageAlt: "Prototype de serre intelligente avec ses capteurs environnementaux",
   },
   {
     year: "2025",
@@ -46,6 +54,8 @@ const projects = [
     title: "Applications de gestion de données",
     description:
       "Interfaces graphiques avec JavaFX et Python (Tkinter), ainsi qu'une application web dynamique avec Symfony et une base relationnelle MySQL.",
+    details:
+      "Le projet réunit des interfaces de bureau développées avec JavaFX et Tkinter, ainsi qu'une application web dynamique réalisée avec Symfony. Les données sont gérées dans une base relationnelle MySQL.",
     tools: "JavaFX, Tkinter, Symfony, MySQL",
   },
   {
@@ -54,7 +64,11 @@ const projects = [
     title: "Blind Eyes",
     description:
       "Canne d'assistance basée sur Arduino Uno, avec détection d'obstacles, de mouvement et d'humidité, et alertes sonores ou tactiles. Deuxième place au concours de projet.",
+    details:
+      "La canne utilise une carte Arduino Uno et des capteurs pour détecter les obstacles, les mouvements et l'humidité. Elle transmet des alertes sonores ou tactiles. Le projet a obtenu la deuxième place au concours de projet.",
     tools: "Arduino Uno, capteurs, alertes",
+    image: blindPhoto,
+    imageAlt: "Canne d'assistance Blind Eyes équipée de capteurs",
   },
 ];
 
@@ -155,22 +169,7 @@ export default function Page() {
               <h2 id="projects-title">Réalisations</h2>
               <p>Des projets en électronique, systèmes embarqués et développement logiciel.</p>
             </div>
-            <div className="project-list">
-              {projects.map((project) => (
-                <article className="project-item" key={project.title}>
-                  <div className="project-meta">
-                    <span className="project-number">{project.year}</span>
-                    <span>{project.category}</span>
-                  </div>
-                  <div className="project-copy">
-                    <h3>{project.title}</h3>
-                    <p>{project.description}</p>
-                    <span className="project-tools">{project.tools}</span>
-                  </div>
-                  <span className="project-arrow" aria-hidden="true">-&gt;</span>
-                </article>
-              ))}
-            </div>
+            <ProjectsPanel projects={projects} />
           </div>
         </section>
 
@@ -224,8 +223,30 @@ export default function Page() {
             <h2 id="contact-title">Parlons de tes idées.</h2>
             <p>Disponible pour échanger autour de projets électroniques et techniques.</p>
             <div className="contact-links">
-              <a href="mailto:mulatranaboson@gmail.com">mulatranaboson@gmail.com</a>
-              <a href="tel:+261325405312">+261 32 54 053 12</a>
+              <a href="mailto:mulatranaboson@gmail.com">
+                <FaEnvelope className="social-link-icon" aria-hidden="true" />
+                <span>mulatranaboson@gmail.com</span>
+              </a>
+              <a href="tel:+261325405312">
+                <FaPhone className="social-link-icon" aria-hidden="true" />
+                <span>+261 32 54 053 12</span>
+              </a>
+              <a href="https://wa.me/261325405312" target="_blank" rel="noopener noreferrer">
+                <FaWhatsapp className="social-link-icon" aria-hidden="true" />
+                <span>WhatsApp / +261 32 54 053 12</span>
+              </a>
+              <a href="https://github.com/MulatRAN" target="_blank" rel="noopener noreferrer">
+                <FaGithub className="social-link-icon" aria-hidden="true" />
+                <span>GitHub / MulatRAN</span>
+              </a>
+              <a href="https://www.linkedin.com/in/ranaboson-mulat-2828a6348/" target="_blank" rel="noopener noreferrer">
+                <FaLinkedin className="social-link-icon" aria-hidden="true" />
+                <span>LinkedIn / ranaboson-mulat</span>
+              </a>
+              <a href="https://www.facebook.com/mulat.ranaboson" target="_blank" rel="noopener noreferrer">
+                <FaFacebook className="social-link-icon" aria-hidden="true" />
+                <span>Facebook / Mulat Ranaboson</span>
+              </a>
               <span>Mahabo Andoharanofotsy</span>
             </div>
             <div className="personal-details">
