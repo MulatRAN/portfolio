@@ -41,10 +41,10 @@ const projects: Project[] = [
     category: "Projet technique",
     title: "Serre intelligente",
     description:
-      "Système d'agriculture connectée sur Arduino pour suivre la température, l'humidité de l'air et du sol, la luminosité et la gestion de l'énergie.",
+      "Système d'agriculture connectée sur ESP32 pour suivre la température, l'humidité de l'air et du sol, la luminosité et la gestion de l'énergie.",
     details:
-      "Le prototype utilise une carte Arduino et des capteurs pour suivre la température, l'humidité de l'air et du sol ainsi que la luminosité. La conception prend également en compte la gestion de l'énergie.",
-    tools: "Arduino, capteurs environnementaux",
+      "Le prototype utilise une carte ESP32 et des capteurs pour suivre la température, l'humidité de l'air et du sol ainsi que la luminosité. La conception prend également en compte la gestion de l'énergie.",
+    tools: "ESP32, capteurs environnementaux",
     image: greenhousePhoto,
     imageAlt: "Prototype de serre intelligente avec ses capteurs environnementaux",
   },
